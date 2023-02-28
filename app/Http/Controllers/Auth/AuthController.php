@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\SignupRequest;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class AuthController extends Controller
         $this->authRepository = $authRepository;
     }
 
-    public function userSignup(Request $request)
+    public function userSignup(SignupRequest $request)
     {
         $this->authRepository->userSignup($request);
         return redirect()->route('get.Dashboard')->with(['success' => __('messages.user.signUpSuccess')]);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
@@ -21,5 +22,10 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::get("dasboard", function () {
             return view('dashboard.dashboard');
         })->name('get.Dashboard');
+        Route::get("addCustomer", function () {
+            return view('customer.addCustomer');
+        })->name('add.customer');
+
+        Route::post('addCustomer', [CustomerController::class, 'addNewCustomer'])->name('add.Customer');
     });
 });

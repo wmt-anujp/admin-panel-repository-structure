@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Requests\Auth\SignupRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\AuthRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
@@ -10,7 +11,7 @@ use Illuminate\Http\Request;
 
 class AuthRepository implements AuthRepositoryInterface
 {
-    public function userSignup(Request $request)
+    public function userSignup(SignupRequest $request)
     {
         try {
             $user = User::create([
