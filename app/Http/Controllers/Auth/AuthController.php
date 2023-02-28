@@ -3,52 +3,40 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Repositories\Interfaces\AuthRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function signUp(Request $request)
+    private $authRepository;
+
+    public function __construct(AuthRepositoryInterface $authRepository)
     {
-        try {
-            $user = User::create([
-                'first_name' => $request->fname,
-                'last_name' => $request->lname,
-                'slug' => $request->slug,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'mobile_number' => $request->mobile,
-            ])->assignRole('customer');
-            Auth::login($user);
-            return redirect()->route('get.Dashboard')->with(['success' => __('messages.user.signUpSuccess')]);
-        } catch (\Exception $exception) {
-            return redirect()->back()->with('error', __('messages.serverError'));
-        }
+        $this->authRepository = $authRepository;
+    }
+
+    public function userSignup(Request $request)
+    {
+        $this->authRepository->userSignup($request);
+        return redirect()->route('get.Dashboard')->with(['success' => __('messages.user.signUpSuccess')]);
     }
 
     public function login(Request $request)
     {
-        try {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->route('get.Dashboard')->with(['success' => __('messages.user.loginSuccess')]);
-            } else {
-                return redirect()->back()->with('error', __('messages.user.unauthorized'));
-            }
-        } catch (\Exception $exception) {
-            return redirect()->back()->with('error', __('messages.serverError'));
+        $resposne = $this->authRepository->userLogin($request);
+        if ($resposne) {
+            return redirect()->route('get.Dashboard')->with(['success' => __('messages.user.loginSuccess')]);
+        } else {
+            return redirect()->back()->with('error', __('messages.user.unauthorized'));
         }
     }
 
     public function logout()
     {
-        try {
-            Auth::logout();
+        $resposne = $this->authRepository->userLogout();
+        if ($resposne) {
             return redirect()->route('login');
-        } catch (\Exception $exception) {
-            return redirect()->back()->with('error', __('messages.serverError'));
         }
     }
 }

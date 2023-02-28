@@ -24,10 +24,5 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('Admin@123'),
             'mobile_number' => '9685748574',
         ])->assignRole('admin');
-
-        // $role = Role::create(['name' => 'admin']);
-        // $permissions = Permission::pluck('id', 'id')->all();
-        // $role->syncPermissions($permissions);
-        // $user->assignRole([$role->id]);
     }
 }

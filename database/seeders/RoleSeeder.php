@@ -21,7 +21,5 @@ class RoleSeeder extends Seeder
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }
-        // collect($roles)->each(function ($role) {
-        // });
     }
 }
