@@ -45,7 +45,7 @@ class AuthRepository implements AuthRepositoryInterface
     {
         try {
             Auth::logout();
-            return true;
+            return response()->json(['success' => __('messages.user.logout')]);
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', __('messages.serverError'));
         }

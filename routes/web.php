@@ -19,13 +19,15 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::get('logout', [AuthController::class, 'logout'])->withoutMiddleware('guest')->name('logout.perform');
     });
     Route::middleware('userAuth:web')->group(function () {
-        Route::get("dasboard", function () {
-            return view('dashboard.dashboard');
-        })->name('get.Dashboard');
         Route::get("addCustomer", function () {
             return view('customer.addCustomer');
         })->name('add.customer');
 
+        Route::get('dasboard', [CustomerController::class, 'getAllCustomer'])->name('get.Dashboard');
         Route::post('addCustomer', [CustomerController::class, 'addNewCustomer'])->name('add.Customer');
+        Route::get('editCustomer/{id}', function () {
+            return view('customer.editCustomer');
+        })->name('getEditCustomer');
+        Route::post('deleteCustomer', [CustomerController::class, 'deleteCustomer'])->name('deleteCustomer.perform');
     });
 });
