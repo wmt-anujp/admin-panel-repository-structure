@@ -16,7 +16,7 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::get('signup', function () {
             return view('auth.signUp');
         })->name('signUp.page');
-        Route::post('/register', [AuthController::class, 'userSignup'])->name('signUp.perform');
+        Route::post('/register', [AuthController::class, 'userSignup'])->withoutMiddleware('guest')->name('signUp.perform');
         Route::get('logout', [AuthController::class, 'logout'])->withoutMiddleware('guest')->name('logout.perform');
     });
     Route::middleware('userAuth:web')->group(function () {

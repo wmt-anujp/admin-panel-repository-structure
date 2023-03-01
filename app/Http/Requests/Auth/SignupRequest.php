@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SignupRequest extends FormRequest
 {
@@ -23,14 +24,15 @@ class SignupRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'fname' => 'required|max:50',
-            'lname' => 'required|max:50',
-            'mobile' => 'required|regex:/^[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{1,4}$/',
-            'email' => 'required|email',
-            'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/|max:16',
-            'cpassword' => 'required|same:password',
-        ];
+        $rules['fname'] = 'required|max:50';
+        $rules['lname'] = 'required|max:50';
+        $rules['mobile'] = 'required|regex:/^[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{1,4}$/';
+        $rules['email'] = 'required|email|unique:users';
+        if (!Auth::user()) {
+            $rules['password'] = 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/|max:16';
+            $rules['cpassword'] = 'required|same:password';
+        }
+        return $rules;
     }
 
     public function messages()
@@ -43,6 +45,7 @@ class SignupRequest extends FormRequest
             'mobile.required' => 'Please enter mobile number',
             'email.required' => 'Please enter email id',
             'email.email' => 'Please enter valid email id',
+            'email.unique' => 'Email already taken',
             'password.required' => 'Please enter password',
             'password.regex' => 'Password must contain lower,upper,numbers,special characters and should be at least 8 characters long',
             'password.max' => 'Max 16 characters are allowed',

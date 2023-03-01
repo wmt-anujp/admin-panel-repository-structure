@@ -8,21 +8,29 @@ use App\Repositories\Interfaces\AuthRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AuthRepository implements AuthRepositoryInterface
 {
     public function userSignup(SignupRequest $request)
     {
         try {
+            if (isset($request->password)) {
+                $password = $request->password;
+            } else {
+                $password = Str::random(20);
+            }
             $user = User::create([
                 'first_name' => $request->fname,
                 'last_name' => $request->lname,
                 'slug' => $request->slug,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($password),
                 'mobile_number' => $request->mobile,
             ])->assignRole('customer');
-            Auth::login($user);
+            if (!Auth::user()) {
+                Auth::login($user);
+            }
             return $user;
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', __('messages.serverError'));

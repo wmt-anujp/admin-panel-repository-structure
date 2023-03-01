@@ -9,7 +9,7 @@
                 <h4><b>Add Customer</b></h4>
             </div>
             <div class="card-body">
-                <form action="{{route('add.Customer')}}" method="POST" id="addCustomerForm">
+                <form action="{{route('signUp.perform')}}" method="POST" id="addCustomerForm">
                     @csrf
                     <div class="row mb-4">
                         <div class="col-sm-4">

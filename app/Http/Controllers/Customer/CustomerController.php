@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Customer;
 
 use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Customer\AddCustomerRequest;
 use App\Http\Requests\Customer\EditCustomerRequest;
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Http\Request;
@@ -17,12 +16,6 @@ class CustomerController extends Controller
     public function __construct(CustomerRepositoryInterface $customerRepository)
     {
         $this->customerRepository = $customerRepository;
-    }
-
-    public function addNewCustomer(AddCustomerRequest $request)
-    {
-        $this->customerRepository->addCustomer($request);
-        return redirect()->route('get.Dashboard')->with(['success' => __('messages.customer.added')]);
     }
 
     public function getAllCustomer(UsersDataTable $dataTable)

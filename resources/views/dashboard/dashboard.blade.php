@@ -11,6 +11,7 @@
 <div class="container-fluid">
     @role('admin')
     <a href="{{route('add.customer')}}" class="btn btn-primary mt-3 mb-3">Add Customer</a>
+    <a href="" class="btn btn-info mt-3 mb-3">Add Category</a>
     <div class="card mt-3">
         <div class="card-body">
             {{ $dataTable->table() }}

@@ -20,7 +20,11 @@ class AuthController extends Controller
     public function userSignup(SignupRequest $request)
     {
         $this->authRepository->userSignup($request);
-        return redirect()->route('get.Dashboard')->with(['success' => __('messages.user.signUpSuccess')]);
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->route('get.Dashboard')->with(['success' => __('messages.customer.added')]);
+        } else {
+            return redirect()->route('get.Dashboard')->with(['success' => __('messages.user.signUpSuccess')]);
+        }
     }
 
     public function login(Request $request)
