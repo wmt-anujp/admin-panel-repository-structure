@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
 use App\Http\Requests\Customer\AddCustomerRequest;
-use App\Models\User;
+use App\Http\Requests\Customer\EditCustomerRequest;
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -33,5 +33,11 @@ class CustomerController extends Controller
     {
         $this->customerRepository->deleteCustomer($request);
         return response()->json(['success' => __('messages.customer.delete')]);
+    }
+
+    public function editCustomer(EditCustomerRequest $request)
+    {
+        $this->customerRepository->editCustomer($request);
+        return redirect()->route('get.Dashboard')->with(['success' => __('messages.customer.edit')]);
     }
 }

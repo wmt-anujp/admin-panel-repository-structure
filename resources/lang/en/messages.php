@@ -11,5 +11,6 @@ return [
     'customer' => [
         'added' => 'Customer Has Been Added',
         'delete' => 'Customer Deleted',
+        'edit' => 'Customer Updated',
     ]
 ];

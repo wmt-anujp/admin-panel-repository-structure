@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
@@ -25,9 +26,11 @@ Route::middleware('restrict.backbutton')->group(function () {
 
         Route::get('dasboard', [CustomerController::class, 'getAllCustomer'])->name('get.Dashboard');
         Route::post('addCustomer', [CustomerController::class, 'addNewCustomer'])->name('add.Customer');
-        Route::get('editCustomer/{id}', function () {
-            return view('customer.editCustomer');
+        Route::get('editCustomer/{id}', function ($id) {
+            $customer = User::find($id);
+            return view('customer.editCustomer')->with(['customer' => $customer]);
         })->name('getEditCustomer');
+        Route::post('editCustomer', [CustomerController::class, 'editCustomer'])->name('editCustomer');
         Route::post('deleteCustomer', [CustomerController::class, 'deleteCustomer'])->name('deleteCustomer.perform');
     });
 });

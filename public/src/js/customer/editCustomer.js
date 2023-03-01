@@ -3,7 +3,7 @@ $(document).ready(function () {
         var re = new RegExp(regexp);
         return this.optional(element) || re.test(value);
     });
-    $("#addCustomerForm").validate({
+    $("#editCustomerForm").validate({
         rules: {
             fname: {
                 required: true,

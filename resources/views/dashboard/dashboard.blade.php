@@ -9,6 +9,7 @@
 @endsection
 @section('content')
 <div class="container-fluid">
+    @role('admin')
     <a href="{{route('add.customer')}}" class="btn btn-primary mt-3 mb-3">Add Customer</a>
     <div class="card mt-3">
         <div class="card-body">
@@ -16,6 +17,14 @@
             {{ $dataTable->scripts() }}
         </div>
     </div>
+    @endrole
+    @role('customer')
+    <div class="card mt-3">
+        <div class="card-body">
+            <p>Welcome Customer</p>
+        </div>
+    </div>
+    @endrole
 </div>
 @endsection
 @section('js')
