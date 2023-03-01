@@ -17,14 +17,23 @@ class User extends Authenticatable
 
     protected $fillable = ['first_name', 'last_name', 'slug', 'email', 'password', 'mobile_number', 'status'];
 
-    protected static function boot()
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::creating(function ($name) {
+    //         $fullname = $name->first_name . ' ' . $name->last_name;
+    //         $slug = Str::slug($fullname);
+    //         $count = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+    //         $name->slug = $count ? "{$slug}-{$count}" : $slug;
+    //     });
+    // }
+
+    public function setSlugAttribute()
     {
-        parent::boot();
-        static::creating(function ($name) {
-            $fullname = $name->first_name . ' ' . $name->last_name;
-            $slug = Str::slug($fullname);
-            $count = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-            $name->slug = $count ? "{$slug}-{$count}" : $slug;
-        });
+        $fullname = $this->first_name . ' ' . $this->last_name;
+        $slug = Str::slug($fullname);
+        $count = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+        $this->slug = $count ? "{$slug}-{$count}" : $slug;
+        $this->attributes['slug'] = $this->slug;
     }
 }
