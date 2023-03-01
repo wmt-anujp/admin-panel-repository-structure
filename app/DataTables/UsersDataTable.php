@@ -53,7 +53,7 @@ class UsersDataTable extends DataTable
     public function query(User $model)
     {
         // return $model->newQuery();
-        $users = User::role('customer');
+        $users = User::role('customer')->orderBy('id', 'desc');
         return $this->applyScopes($users);
     }
 

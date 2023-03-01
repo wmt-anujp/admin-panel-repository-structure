@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\Customer\CustomerController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -20,11 +20,12 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::get('logout', [AuthController::class, 'logout'])->withoutMiddleware('guest')->name('logout.perform');
     });
     Route::middleware('userAuth:web')->group(function () {
+        Route::get('dasboard', [CustomerController::class, 'getAllCustomer'])->name('get.Dashboard');
+
+        // customer section
         Route::get("addCustomer", function () {
             return view('customer.addCustomer');
         })->name('add.customer');
-
-        Route::get('dasboard', [CustomerController::class, 'getAllCustomer'])->name('get.Dashboard');
         Route::post('addCustomer', [CustomerController::class, 'addNewCustomer'])->name('add.Customer');
         Route::get('editCustomer/{id}', function ($id) {
             $customer = User::find($id);
@@ -32,5 +33,7 @@ Route::middleware('restrict.backbutton')->group(function () {
         })->name('getEditCustomer');
         Route::post('editCustomer', [CustomerController::class, 'editCustomer'])->name('editCustomer');
         Route::post('deleteCustomer', [CustomerController::class, 'deleteCustomer'])->name('deleteCustomer.perform');
+
+        // category section
     });
 });

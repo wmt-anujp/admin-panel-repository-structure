@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Customer;
 
 use App\DataTables\UsersDataTable;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\AddCustomerRequest;
 use App\Http\Requests\Customer\EditCustomerRequest;
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
