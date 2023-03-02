@@ -43,42 +43,65 @@
 @section('js')
     <script>
         function deleteCustomer(id){
-            $.ajax({
-                url: "{{route('deleteCustomer.perform')}}",
-                type: "POST",
-                data: {
-                    _token: '{{csrf_token()}}',
-                    id: id,
-                },
-                success: function (response) {
-                    if (response?.success) {
-                        SuccessNotifify(response.success)
-                    } else {
-                        ErrorNotifify(response.failed)
-                    }
-                    $('#userTable').DataTable().ajax.reload();
+            swal({
+                title: 'Delete!',
+                text: 'Are You Sure You Want To Delete?',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: "{{route('deleteCustomer.perform')}}",
+                        type: "POST",
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            id: id,
+                        },
+                        success: function (response) {
+                            if (response?.success) {
+                                SuccessNotifify(response.success)
+                            } else {
+                                ErrorNotifify(response.failed)
+                            }
+                            $('#userTable').DataTable().ajax.reload();
+                        }
+                    });
                 }
             });
+            
         }
 
         function deleteCategory(id){
-            $.ajax({
-                url: "{{route('deleteCategory.perform')}}",
-                type: "POST",
-                dataType: "JSON",
-                data: {
-                    _token: '{{csrf_token()}}',
-                    id: id,
-                },
-                success: function (response) {
-                    if (response?.success) {
-                        SuccessNotifify(response.success)
-                    } else {
-                        ErrorNotifify(response.failed)
-                    }
-                    $('#categoriesTable').DataTable().ajax.reload();
+            event.preventDefault();
+            swal({
+                title: 'Delete!',
+                text: 'Are You Sure You Want To Delete?',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: "{{route('deleteCategory.perform')}}",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            id: id,
+                        },
+                        success: function (response) {
+                            if (response?.success) {
+                                SuccessNotifify(response.success)
+                            } else {
+                                ErrorNotifify(response.failed)
+                            }
+                            $('#categoriesTable').DataTable().ajax.reload();
+                        }
+                    });
                 }
             });
+            
         }
     </script>
 @endsection
