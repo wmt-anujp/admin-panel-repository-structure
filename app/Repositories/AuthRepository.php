@@ -23,7 +23,6 @@ class AuthRepository implements AuthRepositoryInterface
             $user = User::create([
                 'first_name' => $request->fname,
                 'last_name' => $request->lname,
-                'slug' => $request->slug,
                 'email' => $request->email,
                 'password' => Hash::make($password),
                 'mobile_number' => $request->mobile,

@@ -43,8 +43,8 @@ $(document).ready(function () {
                 maxlength: "only 50 characters are allowed",
             },
             mobile: {
-                required: "please enter customer's mobile number",
-                regex: "only numbers are allowed",
+                required: "Please enter customer's mobile number",
+                regex: "only 10 numbers are allowed",
             },
             email: {
                 required: "Please Enter Email",

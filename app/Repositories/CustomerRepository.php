@@ -25,7 +25,7 @@ class CustomerRepository implements CustomerRepositoryInterface
         try {
             $customer = User::find($request->id);
             $customer->delete();
-            return response()->json(['success' => true]);
+            return $customer;
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', __('messages.serverError'));
         }

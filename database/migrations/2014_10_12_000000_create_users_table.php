@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 50)->unique();
             $table->string('password', 100);
             $table->string('mobile_number', 100);
-            $table->enum('status', ['1', '0']);
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -11,8 +11,11 @@
 <div class="container-fluid">
     @role('admin')
     <a href="{{route('add.customer')}}" class="btn btn-primary mt-3 mb-3">Add Customer</a>
-    <a href="" class="btn btn-info mt-3 mb-3">Add Category</a>
+    <a href="{{route('add.Category')}}" class="btn btn-info mt-3 mb-3">Add Category</a>
     <div class="card mt-3">
+        <div class="card-header">
+            <h4><b>Customers</b></h4>
+        </div>
         <div class="card-body">
             {{ $dataTable->table() }}
             {{ $dataTable->scripts() }}
@@ -32,8 +35,8 @@
     <script>
         function deleteCustomer(id){
             $.ajax({
-                type: "POST",
                 url: "{{route('deleteCustomer.perform')}}",
+                type: "POST",
                 data: {
                     _token: '{{csrf_token()}}',
                     id: id,

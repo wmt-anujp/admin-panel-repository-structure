@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,6 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::get("addCustomer", function () {
             return view('customer.addCustomer');
         })->name('add.customer');
-        Route::post('addCustomer', [CustomerController::class, 'addNewCustomer'])->name('add.Customer');
         Route::get('editCustomer/{id}', function ($id) {
             $customer = User::find($id);
             return view('customer.editCustomer')->with(['customer' => $customer]);
@@ -35,5 +35,10 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::post('deleteCustomer', [CustomerController::class, 'deleteCustomer'])->name('deleteCustomer.perform');
 
         // category section
+        Route::get('addCategory', function () {
+            return view('category.addCategory');
+        })->name('add.Category');
+        Route::get('allCategory', [CategoryController::class, 'getAllCategories'])->name('getCategories');
+        Route::post('addCategory', [CategoryController::class, 'addNewCategory'])->name('add.Category');
     });
 });

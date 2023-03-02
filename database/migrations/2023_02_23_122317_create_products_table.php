@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->double('base_price', 8, 2);
             $table->double('discounted_price', 8, 2);
             $table->string('slug');
-            $table->enum('status', ['1', '0']);
+            $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->timestamps();
             $table->softDeletes();
         });
