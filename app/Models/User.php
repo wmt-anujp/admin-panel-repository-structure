@@ -6,34 +6,22 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes, HasSlug;
 
     protected $fillable = ['first_name', 'last_name', 'slug', 'email', 'password', 'mobile_number', 'status'];
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-    //     static::creating(function ($name) {
-    //         $fullname = $name->first_name . ' ' . $name->last_name;
-    //         $slug = Str::slug($fullname);
-    //         $count = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-    //         $name->slug = $count ? "{$slug}-{$count}" : $slug;
-    //     });
-    // }
-
-    public function setSlugAttribute()
+    public function getSlugOptions(): SlugOptions
     {
-        $fullname = $this->first_name . ' ' . $this->last_name;
-        $slug = Str::slug($fullname);
-        $count = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
-        $this->slug = $count ? "{$slug}-{$count}" : $slug;
-        $this->attributes['slug'] = $this->slug;
+        return SlugOptions::create()
+            ->generateSlugsFrom(['first_name', 'last_name'])
+            ->saveSlugsTo('slug');
     }
 }
