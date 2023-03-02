@@ -9,4 +9,6 @@ interface CategoryRepositoryInterface
 {
     public function getAllCategories();
     public function addCategory(CategoryRequest $request);
+    public function deleteCategory(Request $request);
+    public function editCategory(CategoryRequest $request);
 }

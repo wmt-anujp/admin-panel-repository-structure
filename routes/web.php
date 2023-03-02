@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -42,5 +43,11 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::get('getCategories', [CategoryController::class, 'getCategories'])->name('get.Category');
         Route::get('allCategory', [CategoryController::class, 'getAllCategories'])->name('getCategories');
         Route::post('addCategory', [CategoryController::class, 'addNewCategory'])->name('add.Category');
+        Route::get('editCategory/{id}', function ($id) {
+            $category = Category::find($id);
+            return view('category.editCategory')->with('category', $category);
+        })->name('getEditCategory');
+        Route::post('editCategory', [CategoryController::class, 'editCategory'])->name('editCategory');
+        Route::post('deleteCategory', [CategoryController::class, 'deleteCategory'])->name('deleteCategory.perform');
     });
 });

@@ -15,5 +15,7 @@ return [
     ],
     'category' => [
         'added' => 'Category has been added',
+        'delete' => 'Category Deleted',
+        'edit' => 'Category Updated',
     ],
 ];

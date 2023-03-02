@@ -31,4 +31,28 @@ class CategoryRepository implements CategoryRepositoryInterface
             return redirect()->back()->with('error', __('messages.serverError'));
         }
     }
+
+    public function deleteCategory(Request $request)
+    {
+        try {
+            $category = Category::find($request->id);
+            $category->delete();
+            return $category;
+        } catch (\Exception $exception) {
+            return redirect()->back()->with(['error' => __('messages.serverError')]);
+        }
+    }
+
+    public function editCategory(CategoryRequest $request)
+    {
+        try {
+            $category = Category::find($request->category_id)->update([
+                'parent_category_id' => isset($request->pcategory) ? $request->pcategory : null,
+                'name' => $request->name,
+            ]);
+            return $category;
+        } catch (\Exception $exception) {
+            return redirect()->back()->with(['error' => __('messages.serverError')]);
+        }
+    }
 }

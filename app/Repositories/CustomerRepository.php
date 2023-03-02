@@ -23,16 +23,14 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function editCustomer(EditCustomerRequest $request)
     {
         try {
-            User::find($request->customer_id)->update([
+            $user = User::find($request->customer_id)->update([
                 'first_name' => $request->fname,
                 'last_name' => $request->lname,
-                'slug' => $request->slug,
                 'mobile_number' => $request->mobile,
                 'email' => $request->email,
             ]);
-            return response()->json(['success' => true]);
+            return $user;
         } catch (\Exception $exception) {
-            dd($exception);
             return redirect()->back()->with('error', __('messages.serverError'));
         }
     }

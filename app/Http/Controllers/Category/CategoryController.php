@@ -33,4 +33,16 @@ class CategoryController extends Controller
     {
         return $categoriesDataTable->render('dashboard.dashboard');
     }
+
+    public function deleteCategory(Request $request)
+    {
+        $this->categoryRepository->deleteCategory($request);
+        return response()->json(['success' => __('messages.category.delete')]);
+    }
+
+    public function editCategory(CategoryRequest $request)
+    {
+        $this->categoryRepository->editCategory($request);
+        return redirect()->route('get.Dashboard')->with(['success' => __('messages.category.edit')]);
+    }
 }

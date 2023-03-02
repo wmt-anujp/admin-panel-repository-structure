@@ -60,5 +60,25 @@
                 }
             });
         }
+
+        function deleteCategory(id){
+            $.ajax({
+                url: "{{route('deleteCategory.perform')}}",
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    _token: '{{csrf_token()}}',
+                    id: id,
+                },
+                success: function (response) {
+                    if (response?.success) {
+                        SuccessNotifify(response.success)
+                    } else {
+                        ErrorNotifify(response.failed)
+                    }
+                    $('#categoriesTable').DataTable().ajax.reload();
+                }
+            });
+        }
     </script>
 @endsection
