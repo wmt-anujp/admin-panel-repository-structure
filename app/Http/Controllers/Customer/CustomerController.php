@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\DataTables\CategoriesDataTable;
 use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\EditCustomerRequest;
@@ -18,9 +19,17 @@ class CustomerController extends Controller
         $this->customerRepository = $customerRepository;
     }
 
-    public function getAllCustomer(UsersDataTable $dataTable)
+    public function getDashboard(UsersDataTable $usersDataTable, CategoriesDataTable $categoriesDataTable)
     {
-        return $dataTable->render('dashboard.dashboard');
+        return view('dashboard.dashboard', [
+            'usersDataTable' => $usersDataTable->html(),
+            'categoriesDataTable' => $categoriesDataTable->html()
+        ]);
+    }
+
+    public function getCustomers(UsersDataTable $usersDataTable)
+    {
+        return $usersDataTable->render('dashboard.dashboard');
     }
 
     public function deleteCustomer(Request $request)

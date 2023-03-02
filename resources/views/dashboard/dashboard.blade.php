@@ -17,8 +17,17 @@
             <h4><b>Customers</b></h4>
         </div>
         <div class="card-body">
-            {{ $dataTable->table() }}
-            {{ $dataTable->scripts() }}
+            {{ $usersDataTable->table() }}
+            {{ $usersDataTable->scripts() }}
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+            <h4><b>Categories</b></h4>
+        </div>
+        <div class="card-body">
+            {{ $categoriesDataTable->table() }}
+            {{ $categoriesDataTable->scripts() }}
         </div>
     </div>
     @endrole

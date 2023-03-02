@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Category;
 
+use App\DataTables\CategoriesDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CategoryRequest;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
@@ -26,5 +27,10 @@ class CategoryController extends Controller
     {
         $this->categoryRepository->addCategory($request);
         return redirect()->route('get.Dashboard')->with(['success' => __('messages.category.added')]);
+    }
+
+    public function getCategories(CategoriesDataTable $categoriesDataTable)
+    {
+        return $categoriesDataTable->render('dashboard.dashboard');
     }
 }

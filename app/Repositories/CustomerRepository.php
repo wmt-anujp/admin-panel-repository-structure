@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\DataTables\UsersDataTable;
 use App\Http\Requests\Customer\EditCustomerRequest;
 use App\Models\User;
 use App\Repositories\Interfaces\CustomerRepositoryInterface;
@@ -10,16 +9,6 @@ use Illuminate\Http\Request;
 
 class CustomerRepository implements CustomerRepositoryInterface
 {
-    // public function allCustomer(UsersDataTable $dataTable)
-    // {
-    //     try {
-    //         $users = User::role('customer')->get();
-    //         return $users;
-    //     } catch (\Exception $exception) {
-    //         return redirect()->back()->with('error', __('messages.serverError'));
-    //     }
-    // }
-
     public function deleteCustomer(Request $request)
     {
         try {

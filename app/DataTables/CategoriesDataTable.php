@@ -21,7 +21,27 @@ class CategoriesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'categories.action');
+            ->addColumn('name', function ($query) {
+                return $query->name;
+            })
+            ->addColumn('status', function ($query) {
+                if ($query->status == 'Inactive') {
+                    $title = 'Inactive';
+                    $class = 'badge-danger';
+                } else {
+                    $title = 'Active';
+                    $class = 'badge-success';
+                }
+                return '<center><span class="badge ' . $class . ' badge-inline" style="color:black">' . $title . '</span></center>';
+            })
+            ->addColumn('action', function ($query) {
+                $editUrl = route('getEditCustomer', $query->id);
+                return '<center><div class="text-center">
+                <a href=' . $editUrl . ' class="btn btn-sm btn-secondary"><i class="fa-regular fa-pen-to-square mr-2"></i> Edit</a>
+                <a href="#" onclick="deleteCustomer(' . "'" . $query->id . "'" . ')" class="btn btn-sm btn-danger"><i class="bi bi-x-circle-fill mr-2"></i> Delete</a>
+                </div></center>';
+            })
+            ->rawColumns(['status', 'action']);
     }
 
     /**
@@ -32,7 +52,8 @@ class CategoriesDataTable extends DataTable
      */
     public function query(Category $model)
     {
-        return $model->newQuery();
+        $category = Category::orderBy('id', 'desc');
+        return $this->applyScopes($category);
     }
 
     /**
@@ -43,18 +64,25 @@ class CategoriesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('categories-table')
+            ->setTableId('categoriesTable')
             ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->dom('Bfrtip')
+            ->minifiedAjax(route('get.Category'))
             ->orderBy(1)
-            ->buttons(
-                Button::make('create'),
-                Button::make('export'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload')
-            );
+            ->responsive(true)
+            ->autoWidth(100)
+            ->selectStyleSingle()
+            ->parameters([
+                'paging' => true,
+                'processing' => true,
+                'serverSide' => true,
+                'searching' => true,
+                'info' => false,
+                'searchDelay' => 350,
+                'select' => true,
+                'dom' => 'Blfrtip',
+                'lengthMenu' => [4],
+            ])
+            ->addTableClass('table table-bordered table-hover gy-5 gs-7 border w-100');
     }
 
     /**
@@ -65,15 +93,9 @@ class CategoriesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('name'),
+            Column::make('status')->addClass('text-center'),
+            Column::make('action')->addClass('text-center'),
         ];
     }
 

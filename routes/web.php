@@ -21,12 +21,13 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::get('logout', [AuthController::class, 'logout'])->withoutMiddleware('guest')->name('logout.perform');
     });
     Route::middleware('userAuth:web')->group(function () {
-        Route::get('dasboard', [CustomerController::class, 'getAllCustomer'])->name('get.Dashboard');
+        Route::get('dasboard', [CustomerController::class, 'getDashboard'])->name('get.Dashboard');
 
         // customer section
         Route::get("addCustomer", function () {
             return view('customer.addCustomer');
         })->name('add.customer');
+        Route::get('getAllCustomers', [CustomerController::class, 'getCustomers'])->name('get.Customer');
         Route::get('editCustomer/{id}', function ($id) {
             $customer = User::find($id);
             return view('customer.editCustomer')->with(['customer' => $customer]);
@@ -38,6 +39,7 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::get('addCategory', function () {
             return view('category.addCategory');
         })->name('add.Category');
+        Route::get('getCategories', [CategoryController::class, 'getCategories'])->name('get.Category');
         Route::get('allCategory', [CategoryController::class, 'getAllCategories'])->name('getCategories');
         Route::post('addCategory', [CategoryController::class, 'addNewCategory'])->name('add.Category');
     });

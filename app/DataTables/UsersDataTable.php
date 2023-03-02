@@ -25,7 +25,7 @@ class UsersDataTable extends DataTable
                 return $query->first_name . ' ' . $query->last_name;
             })
             ->addColumn('status', function ($query) {
-                if ($query->status == 0) {
+                if ($query->status == 'Inactive') {
                     $title = 'Inactive';
                     $class = 'badge-danger';
                 } else {
@@ -67,7 +67,7 @@ class UsersDataTable extends DataTable
         return $this->builder()
             ->setTableId('userTable')
             ->columns($this->getColumns())
-            ->minifiedAjax()
+            ->minifiedAjax(route('get.Customer'))
             ->orderBy(1)
             ->responsive(true)
             ->autoWidth(100)

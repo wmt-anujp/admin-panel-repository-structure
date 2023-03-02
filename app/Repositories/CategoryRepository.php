@@ -15,7 +15,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             $categories = Category::all();
             return $categories;
         } catch (\Exception $exception) {
-            return redirect()->back()->with('error', __('messages.serverError'));
+            return redirect()->back()->with(['error' => __('messages.serverError')]);
         }
     }
 
