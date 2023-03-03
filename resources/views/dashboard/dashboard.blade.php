@@ -36,7 +36,8 @@
             <h4><b>Products</b></h4>
         </div>
         <div class="card-body">
-            
+            {{ $productDataTable->table() }}
+            {{ $productDataTable->scripts() }}
         </div>
     </div>
     @endrole

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\DataTables\CategoriesDataTable;
+use App\DataTables\ProductsDataTable;
 use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\EditCustomerRequest;
@@ -19,11 +20,12 @@ class CustomerController extends Controller
         $this->customerRepository = $customerRepository;
     }
 
-    public function getDashboard(UsersDataTable $usersDataTable, CategoriesDataTable $categoriesDataTable)
+    public function getDashboard(UsersDataTable $usersDataTable, CategoriesDataTable $categoriesDataTable, ProductsDataTable $productDataTable)
     {
         return view('dashboard.dashboard', [
             'usersDataTable' => $usersDataTable->html(),
-            'categoriesDataTable' => $categoriesDataTable->html()
+            'categoriesDataTable' => $categoriesDataTable->html(),
+            'productDataTable' => $productDataTable->html(),
         ]);
     }
 
