@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Product;
 
+use App\DataTables\ProductsDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductRequest;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
@@ -24,5 +25,10 @@ class ProductController extends Controller
         } else {
             return back()->with('error', __('messages.product.imageFormat'));
         }
+    }
+
+    public function getAllProducts(ProductsDataTable $productDataTable)
+    {
+        return $productDataTable->render('dashboard.dashboard');
     }
 }

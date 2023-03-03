@@ -56,5 +56,6 @@ Route::middleware('restrict.backbutton')->group(function () {
             return view('product.addProduct');
         })->name('add.Product');
         Route::post('addProducts', [ProductController::class, 'addProducting'])->name('addProduct');
+        Route::get('allProducts', [ProductController::class, 'getAllProducts'])->name('getProducts');
     });
 });

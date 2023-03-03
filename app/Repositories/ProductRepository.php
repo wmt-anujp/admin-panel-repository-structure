@@ -47,7 +47,6 @@ class ProductRepository implements ProductRepositoryInterface
             DB::commit();
             return $product;
         } catch (\Exception $exception) {
-            dd($exception);
             DB::rollback();
             return redirect()->back()->with(['error' => __('messages.serverError')]);
         }

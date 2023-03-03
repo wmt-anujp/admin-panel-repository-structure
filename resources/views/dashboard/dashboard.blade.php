@@ -31,6 +31,14 @@
             {{ $categoriesDataTable->scripts() }}
         </div>
     </div>
+    <div class="card mt-3">
+        <div class="card-header">
+            <h4><b>Products</b></h4>
+        </div>
+        <div class="card-body">
+            
+        </div>
+    </div>
     @endrole
     @role('customer')
     <div class="card mt-3">

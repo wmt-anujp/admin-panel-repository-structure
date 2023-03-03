@@ -21,9 +21,6 @@ class CategoriesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('name', function ($query) {
-                return $query->name;
-            })
             ->addColumn('status', function ($query) {
                 if ($query->status == 'Inactive') {
                     $title = 'Inactive';
