@@ -10,8 +10,9 @@
 @section('content')
 <div class="container-fluid">
     @role('admin')
-    <a href="{{route('add.customer')}}" class="btn btn-primary mt-3 mb-3">Add Customer</a>
+    <a href="{{route('add.Customer')}}" class="btn btn-primary mt-3 mb-3">Add Customer</a>
     <a href="{{route('add.Category')}}" class="btn btn-info mt-3 mb-3">Add Category</a>
+    <a href="{{route('add.Product')}}" class="btn btn-info mt-3 mb-3">Add Product</a>
     <div class="card mt-3">
         <div class="card-header">
             <h4><b>Customers</b></h4>

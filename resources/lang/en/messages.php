@@ -18,4 +18,10 @@ return [
         'delete' => 'Category Deleted',
         'edit' => 'Category Updated',
     ],
+    'product' => [
+        'added' => 'Product has been added',
+        'delete' => 'Product has been deleted',
+        'edit' => 'Product has been Updated',
+        'imageFormat' => 'Only jpg,jpeg,png,svg format are allowed',
+    ]
 ];

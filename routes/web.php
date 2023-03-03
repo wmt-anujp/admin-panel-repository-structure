@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Product\ProductController;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,7 @@ Route::middleware('restrict.backbutton')->group(function () {
         // customer section
         Route::get("addCustomer", function () {
             return view('customer.addCustomer');
-        })->name('add.customer');
+        })->name('add.Customer');
         Route::get('getAllCustomers', [CustomerController::class, 'getCustomers'])->name('get.Customer');
         Route::get('editCustomer/{id}', function ($id) {
             $customer = User::find($id);
@@ -49,5 +50,11 @@ Route::middleware('restrict.backbutton')->group(function () {
         })->name('getEditCategory');
         Route::post('editCategory', [CategoryController::class, 'editCategory'])->name('editCategory');
         Route::post('deleteCategory', [CategoryController::class, 'deleteCategory'])->name('deleteCategory.perform');
+
+        // product section
+        Route::get('addProduct', function () {
+            return view('product.addProduct');
+        })->name('add.Product');
+        Route::post('addProducts', [ProductController::class, 'addProducting'])->name('addProduct');
     });
 });
