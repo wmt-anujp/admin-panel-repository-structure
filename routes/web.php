@@ -61,8 +61,10 @@ Route::middleware('restrict.backbutton')->group(function () {
         Route::post('deleteProduct', [ProductController::class, 'deleteProduct'])->name('deleteProduct.perform');
         Route::get('editProduct/{id}', function ($id) {
             $product = Product::where('id', $id)->with('categories')->first();
+            // dd($product->categories->toArray());
             $category = json_encode(array_column($product->categories->toArray(), 'category_id'));
             return view('product.editProduct')->with(['product' => $product, 'category' => $category]);
         })->name('getEditProduct');
+        Route::post('editProduct', [ProductController::class, 'editProduct'])->name('editProduct');
     });
 });

@@ -37,4 +37,10 @@ class ProductController extends Controller
         $this->productRepository->deleteProduct($request);
         return response()->json(['success' => __('messages.product.delete')]);
     }
+
+    public function editProduct(ProductRequest $request)
+    {
+        $this->productRepository->editProduct($request);
+        return redirect()->route('get.Dashboard')->with(['success' => __('messages.product.edit')]);
+    }
 }

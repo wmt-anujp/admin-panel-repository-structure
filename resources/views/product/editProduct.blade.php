@@ -9,10 +9,11 @@
             <h4><b>Edit Product</b></h4>
         </div>
         <div class="card-body">
-            <form action="" method="POST" id="editProductForm" enctype="multipart/form-data">
+            <form action="{{route('editProduct')}}" method="POST" id="editProductForm" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
                     <div class="col-sm-4">
+                        <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}">
                         <label for="pcategory" class="form-label">Select Category</label>
                         <select class="form-select" name="pcategory[]" id="pcategory" multiple></select>
                         @if ($errors->has('pcategory'))

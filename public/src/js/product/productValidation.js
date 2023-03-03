@@ -105,9 +105,6 @@ $(document).ready(function () {
                 required: true,
                 regex: "^[0-9]*$",
             },
-            "product_image[]": {
-                required: true,
-            },
         },
         messages: {
             "pcategory[]": {
@@ -134,9 +131,6 @@ $(document).ready(function () {
             disc_price: {
                 required: "Please Enter Product's Discounted Price",
                 regex: "Only Numbers are allowed",
-            },
-            "product_image[]": {
-                required: "Please Upload Product's Images",
             },
         },
         errorElement: "em",

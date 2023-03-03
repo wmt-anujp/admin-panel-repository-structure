@@ -30,7 +30,7 @@ class ProductRequest extends FormRequest
             'description' => 'required|max:200',
             'base_price' => 'required|regex:/^[0-9]*$/',
             'disc_price' => 'required|regex:/^[0-9]*$/',
-            'product_image' => 'required',
+            // 'product_image' => 'required',
         ];
     }
 

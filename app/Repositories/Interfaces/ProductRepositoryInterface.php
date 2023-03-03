@@ -9,4 +9,5 @@ interface ProductRepositoryInterface
 {
     public function addProduct(ProductRequest $request);
     public function deleteProduct(Request $request);
+    public function editProduct(ProductRequest $request);
 }
