@@ -33,7 +33,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <button type="submit" class="btn btn-primary" id="addCategory">Update Category</button>
+                        <button type="submit" class="btn btn-primary" id="updateCategory">Update Category</button>
                     </div>
                 </div>
             </form>
@@ -52,7 +52,8 @@
             success:function(response){
                 let category=response?.category;
                 let categoryData;
-                category && category.length>0 && category.map(e=>categoryData+=`<option value=${e.id} ${"{{$category->parent_category_id}}" == e.id ? "selected" : ""}>${e.name}</option>\n`);
+                category && category.length>0 && category.map(e=>categoryData+=`<option value=${e.id} 
+                ${"{{$category->parent_category_id}}" == e.id ? "selected" : ""}>${e.name}</option>\n`);
                 $('#pcategory').html(categoryData);
             },
             error: function(error) {

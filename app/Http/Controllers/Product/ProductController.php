@@ -31,4 +31,10 @@ class ProductController extends Controller
     {
         return $productDataTable->render('dashboard.dashboard');
     }
+
+    public function deleteProduct(Request $request)
+    {
+        $this->productRepository->deleteProduct($request);
+        return response()->json(['success' => __('messages.product.delete')]);
+    }
 }

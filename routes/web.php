@@ -5,6 +5,7 @@ use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Product\ProductController;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
@@ -57,5 +58,11 @@ Route::middleware('restrict.backbutton')->group(function () {
         })->name('add.Product');
         Route::post('addProducts', [ProductController::class, 'addProducting'])->name('addProduct');
         Route::get('allProducts', [ProductController::class, 'getAllProducts'])->name('getProducts');
+        Route::post('deleteProduct', [ProductController::class, 'deleteProduct'])->name('deleteProduct.perform');
+        Route::get('editProduct/{id}', function ($id) {
+            $product = Product::where('id', $id)->with('categories')->first();
+            $category = json_encode(array_column($product->categories->toArray(), 'category_id'));
+            return view('product.editProduct')->with(['product' => $product, 'category' => $category]);
+        })->name('getEditProduct');
     });
 });

@@ -113,5 +113,36 @@
             });
             
         }
+
+        function deleteProduct(id) {
+            event.preventDefault();
+            swal({
+                title: 'Delete!',
+                text: 'Are You Sure You Want To Delete?',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: "{{route('deleteProduct.perform')}}",
+                        dataType: "JSON",
+                        type: "POST",
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            id: id,
+                        },
+                        success: function (response) {
+                            if (response?.success) {
+                                SuccessNotifify(response.success)
+                            } else {
+                                ErrorNotifify(response.failed)
+                            }
+                            $('#productsDataTable').DataTable().ajax.reload();
+                        }
+                    });
+                }
+            });
+        }
     </script>
 @endsection

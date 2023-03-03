@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
 use App\Repositories\Interfaces\ProductRepositoryInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -48,6 +49,17 @@ class ProductRepository implements ProductRepositoryInterface
             return $product;
         } catch (\Exception $exception) {
             DB::rollback();
+            return redirect()->back()->with(['error' => __('messages.serverError')]);
+        }
+    }
+
+    public function deleteProduct(Request $request)
+    {
+        try {
+            $product = Product::find($request->id);
+            $product->delete();
+            return $product;
+        } catch (\Exception $exception) {
             return redirect()->back()->with(['error' => __('messages.serverError')]);
         }
     }

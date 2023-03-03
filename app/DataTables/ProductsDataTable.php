@@ -32,10 +32,10 @@ class ProductsDataTable extends DataTable
                 return '<center><span class="badge ' . $class . ' badge-inline" style="color:black">' . $title . '</span></center>';
             })
             ->addColumn('action', function ($query) {
-                $editUrl = route('getEditCategory', $query->id);
+                $editUrl = route('getEditProduct', $query->id);
                 return '<center><div class="text-center">
                 <a href=' . $editUrl . ' class="btn btn-sm btn-secondary"><i class="fa-regular fa-pen-to-square mr-2"></i> Edit</a>
-                <a href="#" onclick="deleteCategory(' . "'" . $query->id . "'" . ')" class="btn btn-sm btn-danger"><i class="bi bi-x-circle-fill mr-2"></i> Delete</a>
+                <a href="#" onclick="deleteProduct(' . "'" . $query->id . "'" . ')" class="btn btn-sm btn-danger"><i class="bi bi-x-circle-fill mr-2"></i> Delete</a>
                 </div></center>';
             })
             ->rawColumns(['status', 'action']);

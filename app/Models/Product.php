@@ -19,4 +19,9 @@ class Product extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
+    public function categories()
+    {
+        return $this->hasMany(ProductCategory::class, 'product_id', 'id');
+    }
 }
